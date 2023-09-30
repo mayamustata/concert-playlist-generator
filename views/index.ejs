@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concert Playlist Generator</title>
+</head>
+<body>
+    <form action="/add" method="POST">
+        <label for="concert">Concert:</label>
+        <input type="text" id="concert" name="concert">
+        <button type="submit">Submit</button>
+    </form>
+
+    <ul>
+        <% concerts.forEach(concert => { %>
+            <li>
+                <%= concert %>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
