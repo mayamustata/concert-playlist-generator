@@ -7,15 +7,15 @@
 </head>
 <body>
     <form action="/add" method="POST">
-        <label for="concert">Concert:</label>
-        <input type="text" id="concert" name="concert">
+        <label for="artist">Artist:</label>
+        <input type="text" id="artist" name="artist">
         <button type="submit">Submit</button>
     </form>
 
     <ul>
-        <% concerts.forEach(concert => { %>
+        <% artists.forEach(artist => { %>
             <li>
-                <%= concert %>
+                <%= artist %>
             </li>
         <% }) %>
     </ul>
