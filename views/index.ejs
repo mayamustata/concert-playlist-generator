@@ -13,11 +13,19 @@
     </form>
 
     <ul>
-        <% artists.forEach(artist => { %>
+        < for (const artist of setlists) { %>
             <li>
                 <%= artist %>
+
+                <ul>
+                    < for (const song of setlists[artist]) { %>
+                        <li>
+                            <%= song %>
+                        </li>
+                    <% } %>
+                </ul>
             </li>
-        <% }) %>
+        <% } %>
     </ul>
 </body>
 </html>

@@ -2,34 +2,33 @@ import express from "express";
 import bodyParser from "body-parser";
 import $ from "jquery";
 import axios from "axios";
-import {getSetlist} from "./get_setlist.js";
+import {getSetlists, getRecentSetlist, getSetlistSongs} from "./get_setlist.js";
 
 const app = express();
 const port = 3000;
 
-let artists = [];
+let setlists = {};
 
 // middleware
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static('public'));
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
     res.render("index.ejs", 
     {
-        artists: artists,
+        setlists: setlists,
     });
 });
 
-app.get("/test", (req, res) => {
-    const filteredSetlists = getSetlist("Olivia Rodrigo");
-    console.log(filteredSetlists);
-    res.send(filteredSetlists);
+app.get("/test", async (req, res) => {
+    const songs = await getSetlistSongs("Olivia Rodrigo");
+    res.send(songs);
 });
 
-app.post("/add", (req, res) => {
+app.post("/add", async (req, res) => {
     let artist = req.body["artist"];
-    artists.push(artist);
-    console.log(artists);
+    let songs = await getSetlistSongs(artist);
+    setlists[artist] = songs;
     res.redirect("/");
 });
 

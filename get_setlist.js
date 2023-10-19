@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiKey = "zjmcRSlHFUMULtZd5vYq-qgsLSrqdEdAwsB5";
 
-export async function getSetlist(artist)
+export async function getSetlists(artist)
 {
     try
     {
@@ -17,8 +17,9 @@ export async function getSetlist(artist)
             },
         });
 
-        const setlists = response.data["setlist"];
+        const setlists = response["data"]["setlist"];
         let filteredSetlists = [];
+        
         for (const setlist of setlists)
         {
             if ("tour" in setlist)
@@ -26,7 +27,7 @@ export async function getSetlist(artist)
                 filteredSetlists.push(setlist);
             }
         }
-
+        console.log(filteredSetlists.length);
         return filteredSetlists;
     }
     catch (error)
@@ -36,5 +37,20 @@ export async function getSetlist(artist)
     }
 }
 
+export async function getRecentSetlist(artist)
+{
+    let filteredSetlists = await getSetlists(artist);
+    return filteredSetlists[0];
+}
 
-
+export async function getSetlistSongs(artist)
+{
+    let setlist = await getRecentSetlist(artist);
+    const songs = setlist["sets"]["set"][0]["song"];
+    let songNames = [];
+    for (const song of songs)
+    {
+        songNames.push(song["name"]);
+    }
+    return songNames;
+}
